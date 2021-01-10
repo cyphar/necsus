@@ -10,6 +10,7 @@
     <script src="client/js/timeago.min.js"></script>
 
     <script src="client/js/vue.js"></script>
+    <script src="client/js/vue-async-computed.js"></script>
     <script src="client/js/materialize.js"></script>
 
     <link rel="stylesheet" type="text/css" href="client/css/materialize.css" />
@@ -32,36 +33,48 @@
       </div>
 
       <div id="lobby">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">{{ welcome }}!</span>
-
+        <div class="row" v-if="isReplit">
+          <div class="card-panel yellow">
             <p>
-              Welcome to the NeCSuS lobby! Please enter the room you'd like to
-              join.
+              This instance of NeCSuS is not persistent because it is running
+              on <a href="https://repl.it/">repl.it</a>. NeCSuS will function
+              normally but if the server is restarted the database will be
+              cleared (meaning all bots and messages will also be deleted).
             </p>
+          </div>
+        </div>
 
-            <label for="room-name">
-              <span>Room name</span>
-            </label>
+        <div class="row">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">{{ welcome }}!</span>
 
-            <input
-              id="room-name"
-              name="room-name"
-              v-model="room_name"
-              @keydown.enter.exact.prevent
-              v-on:keyup.enter.exact="joinRoom()"
-            />
-
-            <button
-              id="join-room"
-              class="btn btn-wide"
-              :disabled="room_name == ''"
-              @click="joinRoom()"
-            >
-              <i class="material-icons">flight_takeoff</i>&nbsp;
-              <span>Join room {{ room_name }}</span>
-            </button>
+              <p>
+                Welcome to the NeCSuS lobby! Please enter the room you'd like to
+                join.
+              </p>
+            </div>
+            <div class="card-action">
+              <label for="room-name">
+                <span>Room name</span>
+              </label>
+              <input
+                id="room-name"
+                name="room-name"
+                v-model="room_name"
+                @keydown.enter.exact.prevent
+                v-on:keyup.enter.exact="joinRoom()"
+              />
+              <button
+                id="join-room"
+                class="btn btn-wide"
+                :disabled="room_name == ''"
+                @click="joinRoom()"
+              >
+                <i class="material-icons">flight_takeoff</i>&nbsp;
+                <span>Join room {{ room_name }}</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

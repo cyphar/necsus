@@ -283,4 +283,9 @@ tr.identical-bot {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+#lobby div.row {
+  width: 30vw;
 }

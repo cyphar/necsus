@@ -1,3 +1,5 @@
+import os
+
 from flask import request, jsonify, send_from_directory
 from werkzeug.exceptions import HTTPException
 from crossdomain import crossdomain
@@ -359,3 +361,12 @@ def reset_room():
   room = events.trigger_room_reset(db, str(data.get('room')))
 
   return jsonify({'room': room})
+
+@app.route('/api/info', methods=['GET'])
+@crossdomain(origin='*')
+def info():
+    return jsonify({
+        # Maybe randomise this? lol.
+        "version": "2021.01.10~Copy of final (1)FINAL_FINAL(2)FINAL(1) FINAL plz work.docx",
+        "is_replit": (os.getenv("REPL_ID") is not None),
+    })

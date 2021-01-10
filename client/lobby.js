@@ -23,6 +23,13 @@ let app = new Vue({
   created: function() {
     this.refreshWelcome();
   },
+  asyncComputed: {
+    isReplit: async function() {
+      let response = await fetch("/api/info");
+      let info = await response.json();
+      return info.is_replit;
+    }
+  },
   methods: {
     refreshWelcome: function() {
       let vm = this;
